@@ -4,6 +4,6 @@
 // their choosing, in addition to the terms of the GPL-v2 or later.
 pragma solidity ^0.8.25;
 
-interface IPayableMulticall {
-    function multicall(bytes[] calldata data) external payable returns (bytes[] memory results);
+interface IMulticall {
+    function multicall(bytes[] calldata data) external returns (bytes[] memory results);
 }

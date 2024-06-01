@@ -7,9 +7,4 @@ import {IPayment} from "./IPayment.sol";
 import {IChecks} from "./IChecks.sol";
 
 /* solhint-disable no-empty-blocks */
-interface IMaverickV2Router is
-    IPayment,
-    IChecks,
-    ICallbackOperations,
-    IPushOperations
-{}
+interface IMaverickV2Router is IPayment, IChecks, ICallbackOperations, IPushOperations {}

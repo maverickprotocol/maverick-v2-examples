@@ -13,19 +13,10 @@ interface IMaverickV2Pool {
     error PoolLocked();
     error PoolInvalidFee();
     error PoolTicksNotSorted(uint256 index, int256 previousTick, int256 tick);
-    error PoolTicksAmountsLengthMismatch(
-        uint256 ticksLength,
-        uint256 amountsLength
-    );
-    error PoolBinIdsAmountsLengthMismatch(
-        uint256 binIdsLength,
-        uint256 amountsLength
-    );
+    error PoolTicksAmountsLengthMismatch(uint256 ticksLength, uint256 amountsLength);
+    error PoolBinIdsAmountsLengthMismatch(uint256 binIdsLength, uint256 amountsLength);
     error PoolKindNotSupported(uint256 kinds, uint256 kind);
-    error PoolInsufficientBalance(
-        uint256 deltaLpAmount,
-        uint256 accountBalance
-    );
+    error PoolInsufficientBalance(uint256 deltaLpAmount, uint256 accountBalance);
     error PoolReservesExceedMaximum(uint256 amount);
     error PoolValueExceedsBits(uint256 amount, uint256 bits);
     error PoolTickMaxExceeded(uint256 tick);
@@ -34,19 +25,9 @@ interface IMaverickV2Pool {
     error PoolSenderNotAccessor(address sender_, address accessor);
     error PoolSenderNotFactory(address sender_, address accessor);
     error PoolFunctionNotImplemented();
-    error PoolTokenNotSolvent(
-        uint256 internalReserve,
-        uint256 tokenBalance,
-        IERC20 token
-    );
+    error PoolTokenNotSolvent(uint256 internalReserve, uint256 tokenBalance, IERC20 token);
 
-    event PoolSwap(
-        address sender,
-        address recipient,
-        SwapParams params,
-        uint256 amountIn,
-        uint256 amountOut
-    );
+    event PoolSwap(address sender, address recipient, SwapParams params, uint256 amountIn, uint256 amountOut);
 
     event PoolAddLiquidity(
         address sender,
@@ -58,11 +39,7 @@ interface IMaverickV2Pool {
         uint32[] binIds
     );
 
-    event PoolMigrateBinsUpStack(
-        address sender,
-        uint32 binId,
-        uint32 maxRecursion
-    );
+    event PoolMigrateBinsUpStack(address sender, uint32 binId, uint32 maxRecursion);
 
     event PoolRemoveLiquidity(
         address sender,
@@ -197,14 +174,36 @@ interface IMaverickV2Pool {
 
     /**
      * @notice 1-15 number to represent the active kinds.
-     * 0b0001 = static;
-     * 0b0010 = right;
-     * 0b0100 = left;
-     * 0b1000 = both;
+     * @notice 0b0001 = static;
+     * @notice 0b0010 = right;
+     * @notice 0b0100 = left;
+     * @notice 0b1000 = both;
      *
      * E.g. a pool with all 4 modes will have kinds = b1111 = 15
      */
-    function kinds() external view returns (uint8);
+    function kinds() external view returns (uint8 _kinds);
+
+    /**
+     * @notice Returns whether a pool has permissioned functions. If true, the
+     * `accessor()` of the pool can set the pool fees.  Other functions in the
+     * pool may also be permissioned; whether or not they are can be determined
+     * through calls to `permissionedLiquidity()` and `permissionedSwap()`.
+     */
+    function permissionedPool() external view returns (bool _permissionedPool);
+
+    /**
+     * @notice Returns whether a pool has permissioned liquidity management
+     * functions. If true, the pool is incompatible with permissioned pool
+     * liquidity management infrastructure.
+     */
+    function permissionedLiquidity() external view returns (bool _permissionedLiquidity);
+
+    /**
+     * @notice Returns whether a pool has a permissioned swap functions. If
+     * true, the pool is incompatible with permissioned pool swap router
+     * infrastructure.
+     */
+    function permissionedSwap() external view returns (bool _permissionedSwap);
 
     /**
      * @notice Pool swap fee for the given direction (A-in or B-in swap) in
@@ -263,10 +262,7 @@ interface IMaverickV2Pool {
     /**
      * @notice ID of bin at input tick position and kind.
      */
-    function binIdByTickKind(
-        int32 tick,
-        uint256 kind
-    ) external view returns (uint32);
+    function binIdByTickKind(int32 tick, uint256 kind) external view returns (uint32);
 
     /**
      * @notice Accumulated tokenA protocol fee.
@@ -301,9 +297,7 @@ interface IMaverickV2Pool {
     /**
      * @notice Return state of Tick at input tick position.
      */
-    function getTick(
-        int32 tick
-    ) external view returns (TickState memory tickState);
+    function getTick(int32 tick) external view returns (TickState memory tickState);
 
     /**
      * @notice Retrieves the balance of a user within a bin.
@@ -311,11 +305,7 @@ interface IMaverickV2Pool {
      * @param subaccount The subaccount for the user.
      * @param binId The ID of the bin.
      */
-    function balanceOf(
-        address user,
-        uint256 subaccount,
-        uint32 binId
-    ) external view returns (uint128 lpToken);
+    function balanceOf(address user, uint256 subaccount, uint32 binId) external view returns (uint128 lpToken);
 
     /**
      * @notice Add liquidity to a pool. This function allows users to deposit
@@ -336,13 +326,7 @@ interface IMaverickV2Pool {
         uint256 subaccount,
         AddLiquidityParams calldata params,
         bytes calldata data
-    )
-        external
-        returns (
-            uint256 tokenAAmount,
-            uint256 tokenBAmount,
-            uint32[] memory binIds
-        );
+    ) external returns (uint256 tokenAAmount, uint256 tokenBAmount, uint32[] memory binIds);
 
     /**
      * @notice Removes liquidity from the pool.

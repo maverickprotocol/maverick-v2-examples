@@ -15,21 +15,18 @@ contract SwapBaseSepolia is Test {
     IMaverickV2Router public router;
     address public constant recipient = address(10);
 
-    function setUp() public virtual  {
-        uint256 forkId = vm.createFork("https://sepolia.base.org/", 10236804);
+    function setUp() public virtual {
+        uint256 forkId = vm.createFork("https://sepolia.base.org/", 10721808);
         vm.selectFork(forkId);
 
-        factory = IMaverickV2Factory(
-            0x1D7472AAfe52e83BA22E707Fc77fF3F3b85551CC
-        );
+        router = IMaverickV2Router(payable(0x5D7784E7bdB859cb9E8779995ae95ddF68C20fDB));
+        quoter = IMaverickV2Quoter(0xAc0B678a48c83041a48dd8b810356f167F8D1FcC);
+
+        factory = router.factory();
         pool = factory.lookup(0, 1)[0];
 
         deal(address(pool.tokenA()), recipient, 10e18);
         deal(address(pool.tokenB()), recipient, 10e18);
-        quoter = IMaverickV2Quoter(0xfc201f0f4123bd11429A4d12Fdb6BE7145d55DD5);
-        router = IMaverickV2Router(
-            payable(0x77f71FaaE76c4B661B52dD6471aaBE8Dcb632B97)
-        );
     }
 
     function estimateSwap(
@@ -37,16 +34,8 @@ contract SwapBaseSepolia is Test {
         bool tokenAIn,
         bool exactOut
     ) internal returns (uint256 returnedAmountIn, uint256 returnedAmountOut) {
-        int32 tickLimit = tokenAIn
-            ? pool.getState().activeTick + 10
-            : pool.getState().activeTick - 10;
-        (returnedAmountIn, returnedAmountOut, ) = quoter.calculateSwap(
-            pool,
-            amountIn,
-            tokenAIn,
-            exactOut,
-            tickLimit
-        );
+        int32 tickLimit = tokenAIn ? pool.getState().activeTick + 10 : pool.getState().activeTick - 10;
+        (returnedAmountIn, returnedAmountOut, ) = quoter.calculateSwap(pool, amountIn, tokenAIn, exactOut, tickLimit);
     }
 
     function swap(
@@ -56,9 +45,7 @@ contract SwapBaseSepolia is Test {
         bool exactOutput
     ) internal returns (uint256 returnedAmountIn, uint256 returnedAmountOut) {
         // Set the tick limit bounds based on the current active tick
-        int32 tickLimit = tokenAIn
-            ? pool.getState().activeTick + 10
-            : pool.getState().activeTick - 10;
+        int32 tickLimit = tokenAIn ? pool.getState().activeTick + 10 : pool.getState().activeTick - 10;
         vm.startPrank(recipient);
 
         IERC20 inputToken = tokenAIn ? pool.tokenA() : pool.tokenB();
@@ -81,10 +68,7 @@ contract SwapBaseSepolia is Test {
         );
 
         uint256 outputTokenBalanceAfter = outputToken.balanceOf(recipient);
-        assertEq(
-            outputTokenBalanceAfter - outputTokenBalanceBefore,
-            returnedAmountOut
-        );
+        assertEq(outputTokenBalanceAfter - outputTokenBalanceBefore, returnedAmountOut);
         vm.stopPrank();
     }
 
@@ -104,19 +88,10 @@ contract SwapBaseSepolia is Test {
         // The pool uses push accounting so transfer the tokens to the pool before calling swap
         inputToken.approve(address(router), transferAmount);
 
-        (returnedAmountOut) = router.exactInputSingle(
-            recipient,
-            pool,
-            tokenAIn,
-            amount,
-            minReceiveAmount
-        );
+        (returnedAmountOut) = router.exactInputSingle(recipient, pool, tokenAIn, amount, minReceiveAmount);
 
         uint256 outputTokenBalanceAfter = outputToken.balanceOf(recipient);
-        assertEq(
-            outputTokenBalanceAfter - outputTokenBalanceBefore,
-            returnedAmountOut
-        );
+        assertEq(outputTokenBalanceAfter - outputTokenBalanceBefore, returnedAmountOut);
         vm.stopPrank();
     }
 
@@ -134,19 +109,10 @@ contract SwapBaseSepolia is Test {
 
         // The pool uses push accounting so transfer the tokens to the pool before calling swap
         inputToken.approve(address(router), transferAmount);
-        (returnedAmountIn, ) = router.exactOutputSingle(
-            recipient,
-            pool,
-            tokenAIn,
-            amount,
-            amountInMaximum
-        );
+        (returnedAmountIn, ) = router.exactOutputSingle(recipient, pool, tokenAIn, amount, amountInMaximum);
 
         uint256 inputTokenBalanceAfter = inputToken.balanceOf(recipient);
-        assertEq(
-            inputTokenBalanceBefore - inputTokenBalanceAfter,
-            returnedAmountIn
-        );
+        assertEq(inputTokenBalanceBefore - inputTokenBalanceAfter, returnedAmountIn);
         vm.stopPrank();
     }
 
@@ -158,12 +124,7 @@ contract SwapBaseSepolia is Test {
 
     function test_SwapTokenAInExactInWithRouter() public {
         (, uint256 estimatedAmountOut) = estimateSwap(1e6, true, false);
-        uint256 amountOut = swapExactInWithRouter(
-            1e6,
-            1e6,
-            true,
-            estimatedAmountOut
-        );
+        uint256 amountOut = swapExactInWithRouter(1e6, 1e6, true, estimatedAmountOut);
         assertEq(estimatedAmountOut, amountOut);
     }
 
@@ -175,12 +136,7 @@ contract SwapBaseSepolia is Test {
 
     function test_SwapTokenAInExactOutWithRouter() public {
         (uint256 estimatedAmountIn, ) = estimateSwap(1e6, true, true);
-        uint256 amountIn = swapExactOutWithRouter(
-            1e6,
-            estimatedAmountIn,
-            true,
-            estimatedAmountIn
-        );
+        uint256 amountIn = swapExactOutWithRouter(1e6, estimatedAmountIn, true, estimatedAmountIn);
         assertEq(estimatedAmountIn, amountIn);
     }
 
@@ -192,12 +148,7 @@ contract SwapBaseSepolia is Test {
 
     function test_SwapTokenBInExactInWithRouter() public {
         (, uint256 estimatedAmountOut) = estimateSwap(1e6, false, false);
-        uint256 amountOut = swapExactInWithRouter(
-            1e6,
-            1e6,
-            false,
-            estimatedAmountOut
-        );
+        uint256 amountOut = swapExactInWithRouter(1e6, 1e6, false, estimatedAmountOut);
         assertEq(estimatedAmountOut, amountOut);
     }
 
@@ -209,12 +160,7 @@ contract SwapBaseSepolia is Test {
 
     function test_SwapTokenBInExactOutWithRouter() public {
         (uint256 estimatedAmountIn, ) = estimateSwap(1e6, false, true);
-        uint256 amountIn = swapExactOutWithRouter(
-            1e6,
-            estimatedAmountIn,
-            false,
-            estimatedAmountIn
-        );
+        uint256 amountIn = swapExactOutWithRouter(1e6, estimatedAmountIn, false, estimatedAmountIn);
         assertEq(estimatedAmountIn, amountIn);
     }
 }

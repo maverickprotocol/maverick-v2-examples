@@ -32,12 +32,6 @@ interface IMaverickV2Factory {
     );
     error FactoryAccessorMustBeNonZero();
 
-    enum PoolType {
-        NotFactoryPool,
-        PermissionlessPool,
-        PermissionedPool
-    }
-
     event PoolCreated(
         IMaverickV2Pool poolAddress,
         uint8 protocolFeeRatio,
@@ -68,7 +62,7 @@ interface IMaverickV2Factory {
         IERC20 tokenB;
         // slot
         uint16 tickSpacing;
-        uint8 kinds;
+        uint8 options;
         address accessor;
     }
 
@@ -91,7 +85,7 @@ interface IMaverickV2Factory {
             IERC20 tokenB,
             // slot
             uint16 tickSpacing,
-            uint8 kinds,
+            uint8 options,
             address accessor
         );
 
@@ -153,7 +147,8 @@ interface IMaverickV2Factory {
     ) external returns (IMaverickV2Pool);
 
     /**
-     * @notice Create a new MaverickV2PoolPermissioned with symmetric swap fees.
+     * @notice Create a new MaverickV2PoolPermissioned with symmetric swap fees
+     * with all functions permissioned.  Set fee to zero to make the pool fee settable by the accessor.
      * @param fee Fraction of the pool swap amount that is retained as an LP in
      * D18 scale.
      * @param tickSpacing Tick spacing of pool where 1.0001^tickSpacing is the
@@ -182,7 +177,9 @@ interface IMaverickV2Factory {
     ) external returns (IMaverickV2Pool);
 
     /**
-     * @notice Create a new MaverickV2PoolPermissioned.
+     * @notice Create a new MaverickV2PoolPermissioned with all functions
+     * permissioned. Set fees to zero to make the pool fee settable by the
+     * accessor.
      * @param feeAIn Fraction of the pool swap amount for tokenA-input swaps
      * that is retained as an LP in D18 scale.
      * @param feeBIn Fraction of the pool swap amount for tokenB-input swaps
@@ -214,6 +211,47 @@ interface IMaverickV2Factory {
     ) external returns (IMaverickV2Pool);
 
     /**
+     * @notice Create a new MaverickV2PoolPermissioned with the option to make
+     * a subset of function permissionless. Set fee to zero to make the pool
+     * fee settable by the accessor.
+     * @param feeAIn Fraction of the pool swap amount for tokenA-input swaps
+     * that is retained as an LP in D18 scale.
+     * @param feeBIn Fraction of the pool swap amount for tokenB-input swaps
+     * that is retained as an LP in D18 scale.
+     * @param tickSpacing Tick spacing of pool where 1.0001^tickSpacing is the
+     * bin width.
+     * @param lookback Pool lookback in second in D2 scale.
+     * @param tokenA Address of tokenA.
+     * @param tokenB Address of tokenB.
+     * @param activeTick Tick position that contains the active bins.
+     * @param kinds 1-15 number to represent the active kinds
+     * 0b0001 = static;
+     * 0b0010 = right;
+     * 0b0100 = left;
+     * 0b1000 = both.
+     * E.g. a pool with all 4 modes will have kinds = b1111 = 15
+     * @param accessor only address that can access the pool's public permissioned write functions.
+     * @param  permissionedLiquidity If true, then only accessor can call
+     * pool's liquidity management functions: `flashLoan`,
+     * `migrateBinsUpstack`, `addLiquidity`, `removeLiquidity`.
+     * @param  permissionedSwap If true, then only accessor can call
+     * pool's swap function.
+     */
+    function createPermissioned(
+        uint64 feeAIn,
+        uint64 feeBIn,
+        uint16 tickSpacing,
+        uint32 lookback,
+        IERC20 tokenA,
+        IERC20 tokenB,
+        int32 activeTick,
+        uint8 kinds,
+        address accessor,
+        bool permissionedLiquidity,
+        bool permissionedSwap
+    ) external returns (IMaverickV2Pool pool);
+
+    /**
      * @notice Update the protocol fee ratio for a pool. Can be called
      * permissionlessly allowing any user to sync the pool protocol fee value
      * with the factory protocol fee value.
@@ -235,10 +273,7 @@ interface IMaverickV2Factory {
      * @param isTokenA A boolean indicating whether tokenA (true) or tokenB
      * (false) is being collected.
      */
-    function claimProtocolFeeForPool(
-        IMaverickV2Pool pool,
-        bool isTokenA
-    ) external;
+    function claimProtocolFeeForPool(IMaverickV2Pool pool, bool isTokenA) external;
 
     /**
      * @notice Claim protocol fee for a pool and transfer it to the protocolFeeReceiver.
@@ -247,12 +282,9 @@ interface IMaverickV2Factory {
     function claimProtocolFeeForPool(IMaverickV2Pool pool) external;
 
     /**
-     * @notice Indicator of whether the pool is a factory pool and, if it is,
-     * whether it is permissioned or not.
+     * @notice Bool indicating whether the pool was deployed from this factory.
      */
-    function factoryPoolType(
-        IMaverickV2Pool pool
-    ) external view returns (PoolType);
+    function isFactoryPool(IMaverickV2Pool pool) external view returns (bool);
 
     /**
      * @notice Address that receives the protocol fee when users call
@@ -262,6 +294,14 @@ interface IMaverickV2Factory {
 
     /**
      * @notice Lookup a pool for given parameters.
+     *
+     * @dev  options bit map of kinds and function permissions
+     * 0b000001 = static;
+     * 0b000010 = right;
+     * 0b000100 = left;
+     * 0b001000 = both;
+     * 0b010000 = liquidity functions are permissioned
+     * 0b100000 = swap function is permissioned
      */
     function lookupPermissioned(
         uint256 feeAIn,
@@ -270,7 +310,7 @@ interface IMaverickV2Factory {
         uint256 lookback,
         IERC20 tokenA,
         IERC20 tokenB,
-        uint8 kinds,
+        uint8 options,
         address accessor
     ) external view returns (IMaverickV2Pool);
 
@@ -319,10 +359,27 @@ interface IMaverickV2Factory {
     /**
      * @notice Lookup a pool for given parameters.
      */
-    function lookup(
-        uint256 startIndex,
-        uint256 endIndex
-    ) external view returns (IMaverickV2Pool[] memory pools);
+    function lookup(uint256 startIndex, uint256 endIndex) external view returns (IMaverickV2Pool[] memory pools);
+
+    /**
+     * @notice Count of permissionless pools.
+     */
+    function poolCount() external view returns (uint256 _poolCount);
+
+    /**
+     * @notice Count of permissioned pools.
+     */
+    function poolPermissionedCount() external view returns (uint256 _poolCount);
+
+    /**
+     * @notice Count of pools for a given accessor and token pair.  For
+     * permissionless pools, pass `accessor = address(0)`.
+     */
+    function poolByTokenCount(
+        IERC20 _tokenA,
+        IERC20 _tokenB,
+        address accessor
+    ) external view returns (uint256 _poolCount);
 
     /**
      * @notice Get the current factory owner.

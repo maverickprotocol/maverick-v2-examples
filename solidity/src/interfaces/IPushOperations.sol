@@ -9,9 +9,7 @@ interface IPushOperations is IRouterErrors {
     /**
      * @notice Perform an exact input single swap with compressed input values.
      */
-    function exactInputSinglePackedArgs(
-        bytes memory argsPacked
-    ) external payable returns (uint256 amountOut);
+    function exactInputSinglePackedArgs(bytes memory argsPacked) external payable returns (uint256 amountOut);
 
     /**
      * @notice Perform an exact input single swap without tick limit check.

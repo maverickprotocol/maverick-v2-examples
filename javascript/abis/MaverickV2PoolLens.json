@@ -78,6 +78,11 @@
         "internalType": "uint256",
         "name": "deltaLpBalance",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minimumRequiredLpBalance",
+        "type": "uint256"
       }
     ],
     "name": "LiquidityUtilitiesInitialTargetBTooSmall",
@@ -505,14 +510,19 @@
       {
         "components": [
           {
-            "internalType": "uint256",
-            "name": "fee",
-            "type": "uint256"
+            "internalType": "uint64",
+            "name": "feeAIn",
+            "type": "uint64"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint64",
+            "name": "feeBIn",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint16",
             "name": "tickSpacing",
-            "type": "uint256"
+            "type": "uint16"
           },
           {
             "internalType": "uint32",
@@ -590,14 +600,19 @@
       {
         "components": [
           {
-            "internalType": "uint256",
-            "name": "fee",
-            "type": "uint256"
+            "internalType": "uint64",
+            "name": "feeAIn",
+            "type": "uint64"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint64",
+            "name": "feeBIn",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint16",
             "name": "tickSpacing",
-            "type": "uint256"
+            "type": "uint16"
           },
           {
             "internalType": "uint32",
@@ -623,11 +638,6 @@
             "internalType": "uint8",
             "name": "kinds",
             "type": "uint8"
-          },
-          {
-            "internalType": "contract IMaverickV2Pool",
-            "name": "pool",
-            "type": "address"
           },
           {
             "components": [
@@ -691,6 +701,16 @@
           {
             "internalType": "uint256",
             "name": "deltaBOut",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "preAddReserveA",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "preAddReserveB",
             "type": "uint256"
           }
         ],
@@ -1047,6 +1067,158 @@
         "internalType": "struct IMaverickV2Pool.TickState[]",
         "name": "tickStates",
         "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "internalType": "int32",
+        "name": "tickRadius",
+        "type": "int32"
+      }
+    ],
+    "name": "getTicksAroundActiveWLiquidity",
+    "outputs": [
+      {
+        "internalType": "int32[]",
+        "name": "ticks",
+        "type": "int32[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "reserveA",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "reserveB",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "totalSupply",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint32[4]",
+            "name": "binIdsByTick",
+            "type": "uint32[4]"
+          }
+        ],
+        "internalType": "struct IMaverickV2Pool.TickState[]",
+        "name": "tickStates",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "liquidities",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "sqrtLowerTickPrices",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "sqrtUpperTickPrices",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "int32",
+        "name": "activeTick",
+        "type": "int32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "feeAIn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "feeBIn",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "internalType": "int32",
+        "name": "tickStart",
+        "type": "int32"
+      },
+      {
+        "internalType": "int32",
+        "name": "tickEnd",
+        "type": "int32"
+      }
+    ],
+    "name": "getTicksWLiqudity",
+    "outputs": [
+      {
+        "internalType": "int32[]",
+        "name": "ticks",
+        "type": "int32[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "reserveA",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "reserveB",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "totalSupply",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint32[4]",
+            "name": "binIdsByTick",
+            "type": "uint32[4]"
+          }
+        ],
+        "internalType": "struct IMaverickV2Pool.TickState[]",
+        "name": "tickStates",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "liquidities",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "sqrtLowerTickPrices",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "sqrtUpperTickPrices",
+        "type": "uint256[]"
       }
     ],
     "stateMutability": "view",

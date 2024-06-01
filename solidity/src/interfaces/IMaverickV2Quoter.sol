@@ -28,9 +28,7 @@ interface IMaverickV2Quoter {
         bool tokenAIn,
         bool exactOutput,
         int32 tickLimit
-    )
-        external
-        returns (uint256 amountIn, uint256 amountOut, uint256 gasEstimate);
+    ) external returns (uint256 amountIn, uint256 amountOut, uint256 gasEstimate);
 
     /**
      * @notice Calculates a multihop swap and returns the resulting amount and
@@ -61,7 +59,5 @@ interface IMaverickV2Quoter {
     /**
      * @notice Pool's sqrt price.
      */
-    function poolSqrtPrice(
-        IMaverickV2Pool pool
-    ) external view returns (uint256 sqrtPrice);
+    function poolSqrtPrice(IMaverickV2Pool pool) external view returns (uint256 sqrtPrice);
 }

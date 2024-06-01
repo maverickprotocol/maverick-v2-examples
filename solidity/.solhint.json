@@ -1,0 +1,25 @@
+{
+  "extends": "solhint:recommended",
+  "rules": {
+    "compiler-version": [
+      "error",
+      "^0.8.20"
+    ],
+    "no-inline-assembly": "off",
+    "not-rely-on-time": "off",
+    "no-console": "warn",
+    "quotes": "off",
+    "immutable-vars-naming": [
+      "warn",
+      {
+        "immutablesAsConstants": false
+      }
+    ],
+    "func-visibility": [
+      "warn",
+      {
+        "ignoreConstructors": true
+      }
+    ]
+  }
+}

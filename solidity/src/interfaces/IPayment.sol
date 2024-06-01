@@ -9,11 +9,7 @@ import {IState} from "./IState.sol";
 
 interface IPayment is IPayableMulticall, IState {
     error PaymentSenderNotWETH9();
-    error PaymentInsufficientBalance(
-        address token,
-        uint256 amountMinimum,
-        uint256 contractBalance
-    );
+    error PaymentInsufficientBalance(address token, uint256 amountMinimum, uint256 contractBalance);
 
     receive() external payable;
 
@@ -21,29 +17,18 @@ interface IPayment is IPayableMulticall, IState {
      * @notice Unwrap WETH9 tokens into ETH and send that balance to recipient.
      * If less than amountMinimum WETH is avialble, then revert.
      */
-    function unwrapWETH9(
-        uint256 amountMinimum,
-        address recipient
-    ) external payable;
+    function unwrapWETH9(uint256 amountMinimum, address recipient) external payable;
 
     /**
      * @notice Transfers specified token amount to recipient
      */
-    function sweepTokenAmount(
-        IERC20 token,
-        uint256 amount,
-        address recipient
-    ) external payable;
+    function sweepTokenAmount(IERC20 token, uint256 amount, address recipient) external payable;
 
     /**
      * @notice Sweep entire ERC20 token balance on this contract to recipient.
      * If less than amountMinimum balance is avialble, then revert.
      */
-    function sweepToken(
-        IERC20 token,
-        uint256 amountMinimum,
-        address recipient
-    ) external payable;
+    function sweepToken(IERC20 token, uint256 amountMinimum, address recipient) external payable;
 
     /**
      * @notice Send any ETH on this contract to msg.sender.

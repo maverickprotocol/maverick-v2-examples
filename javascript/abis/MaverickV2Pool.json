@@ -12,6 +12,22 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "binIdsLength",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountsLength",
+        "type": "uint256"
+      }
+    ],
+    "name": "PoolBinIdsAmountsLengthMismatch",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "int32",
         "name": "startingTick",
         "type": "int32"
@@ -43,7 +59,23 @@
   },
   {
     "inputs": [],
-    "name": "PoolInvalidInput",
+    "name": "PoolInvalidFee",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "kinds",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "kind",
+        "type": "uint256"
+      }
+    ],
+    "name": "PoolKindNotSupported",
     "type": "error"
   },
   {
@@ -113,6 +145,43 @@
       }
     ],
     "name": "PoolTickMaxExceeded",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "ticksLength",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountsLength",
+        "type": "uint256"
+      }
+    ],
+    "name": "PoolTicksAmountsLengthMismatch",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "previousTick",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "tick",
+        "type": "int256"
+      }
+    ],
+    "name": "PoolTicksNotSorted",
     "type": "error"
   },
   {
@@ -861,7 +930,7 @@
     "outputs": [
       {
         "internalType": "uint8",
-        "name": "",
+        "name": "_kinds",
         "type": "uint8"
       }
     ],
@@ -910,6 +979,45 @@
     "name": "migrateBinUpStack",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "permissionedLiquidity",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "_permissionedLiquidity",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "permissionedPool",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "_permissionedPool",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "permissionedSwap",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "_permissionedSwap",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

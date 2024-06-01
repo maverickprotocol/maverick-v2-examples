@@ -4,11 +4,7 @@ pragma solidity ^0.8.25;
 import {IMaverickV2Pool} from "./IMaverickV2Pool.sol";
 
 interface IChecks {
-    error PositionExceededPriceBounds(
-        uint256 sqrtPrice,
-        uint256 minSqrtPrice,
-        uint256 maxSqrtPrice
-    );
+    error PositionExceededPriceBounds(uint256 sqrtPrice, uint256 minSqrtPrice, uint256 maxSqrtPrice);
     error PositionDeadlinePassed(uint256 deadline, uint256 blockTimestamp);
 
     /**
@@ -17,11 +13,7 @@ interface IChecks {
      * @param minSqrtPrice The minimum acceptable square root price.
      * @param maxSqrtPrice The maximum acceptable square root price.
      */
-    function checkSqrtPrice(
-        IMaverickV2Pool pool,
-        uint256 minSqrtPrice,
-        uint256 maxSqrtPrice
-    ) external view;
+    function checkSqrtPrice(IMaverickV2Pool pool, uint256 minSqrtPrice, uint256 maxSqrtPrice) external view;
 
     /**
      * @notice Function to check if a given deadline has passed.

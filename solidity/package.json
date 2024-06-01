@@ -11,6 +11,11 @@
   },
   "scripts": {
     "test": "forge test --force",
+    "gas": "forge test --gas-report --force",
+    "build": "forge build --force",
+    "size": "forge build --sizes --force | tee .sizes",
+    "prettier-check": "prettier --check '{test,contracts}/**/**/**/*.sol'",
+    "lint": "solhint -f table 'contracts/**/**/**/*.sol'",
     "prettier": "prettier --write '{test,src}/**/**/**/*.sol'"
   },
   "dependencies": {

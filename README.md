@@ -150,7 +150,7 @@ To ensure a swap does not hit the tick limit, define the limit as `tickLimit: to
 If the swap requires more liquidity than the pool has, and the `tickLimit` is set to this max value, then the pool swap function will loop essentially infinitely until it reverts with an `Out of gas` error.
 
 There are two mechanisms to prevent this:
-1) Set a resonable gas limit on the swap so that the "infinite loop" will terminate before too many iterations.  For example, in solidity, the call would be `pool.swap{gasLimit: 300_000}(recipient, params, data);`.
+1) Set a resonable gas limit on the swap so that the "infinite loop" will terminate before too many iterations.  For example, in solidity, the call would be `pool.swap{gas: 300_000}(recipient, params, data);`.
 
 
 2) Define the `tickLimit` to be some small delta from the `activeTick`.  For instance:
@@ -197,6 +197,110 @@ Note that the gas estimate returned is only a rough gas estimate and will not ex
 
 See https://docs.mav.xyz/v2-technical-reference/v2-contracts/maverick-v2-supplemental-contracts/maverickv2quoter for more details.
 
+## Adding Liquidity to a Pool
+
+There are three mechanisms to add liquidity to a pool.
+- Add liquidity directly to the pool.  This liquidity is non-transferable and only the receipient of the liquidity will be able to remove it.
+- Add liquidity through the `MaverickV2Position` ERC-721 contract.  Liquidity is stored with a tokenId an is transferable as an NFT.
+- Add liquidity through a Boosted Position (BP) which defines a fixed liquidity distribution and mints users ERC-20 tokens that represent their ownership of the BP.
+
+### Adding to a Position NFT
+
+The `MaverickV2RewardRouter` contract exposes the `mintPositionNft` function:
+
+```solidity
+function mintPositionNft(
+    IMaverickV2Pool pool,
+    address recipient,
+    bytes calldata packedSqrtPriceBreaks,
+    bytes[] calldata packedArgs
+) external payable returns (uint256 tokenAAmount, uint256 tokenBAmount, uint32[] memory binIds, uint256 tokenId);
+```
+When adding liquidity to a pool, the user specifies the amount of bin LP balance they want to receive through the `packedArgs` parameter.  The units of LP balance are not "liquidity" in the `L^2 = x * y` sense of liquidity, instead they are just an LP unit that tracks a user's ownership of bin liquidity.  Since fees accumulate in bins, the token value of bin LP balance increases as swaps happen in a bin.
+
+Typically a user does not know what value of LP balance they want to buy, instead, a user comes to a pool understanding the maximum amount of tokens they want to spend and the distribution of liquidity (i.e. "L") in ticks they want to end up.  Mapping a user's intent to LP balances is a complicated operation, but there is a straightforward view function on the `MaverickV2Lens` contract that does the mapping from intent to LP balances:
+
+```solidity
+function getAddLiquidityParams(
+    AddParamsViewInputs memory params
+)
+    external
+    view
+    returns (
+        bytes memory packedSqrtPriceBreaks,
+        bytes[] memory packedArgs,
+        uint88[] memory sqrtPriceBreaks,
+        IMaverickV2Pool.AddLiquidityParams[] memory addParams,
+        IMaverickV2PoolLens.TickDeltas[] memory tickDeltas
+    );
+
+struct AddParamsViewInputs {
+    IMaverickV2Pool pool;
+    uint8 kind;
+    int32[] ticks;
+    uint128[] relativeLiquidityAmounts;
+    AddParamsSpecification addSpec;
+}
+
+struct AddParamsSpecification {
+    uint256 slippageFactorD18;
+    uint256 numberOfPriceBreaksPerSide;
+    uint256 targetAmount;
+    bool targetIsA;
+}
+```
+
+With `getAddLiquidityParams` a user can express their objective distrition in the liquidity domain (not the LP balance domain) as well as their ceiling token amount, and a series of slippage breakpoints.   The function returns an array of `AddLiquidityParams`, one element for each price breakpoint.  This feature is nice becuase it keeps price shifts from causing the user to send more of one token or the other than they intended.
+
+For example, for a given `AddLiquidityParams`, if the price moves right, the user will have to send more tokenA value and less tokenB value than they intended.  Other Dexes will just revert in this situation.  But with this price breakpoint list, the `getAddLiquidityParams` does the calculation to ensure that, even with a price movement, the desired amount of tokens will not be exceeded.  So, in the case that the price moves slightly right, the `AddLiquidityParams` at that new price break will have less LP balance per bin specified thereby ensuring that the correct amount of tokens are requested by the pool.
+
+All of this is abstracted away for the user and they simply need to specify the inputs of `getAddLiquidityParams`, call that function off chain to get the `packedSqrtPriceBreaks` and `packedArgs` values which is then passed into the `mintPositionNft` function on chain.
+
+See https://docs.mav.xyz/v2-technical-reference/v2-contracts/maverick-v2-supplemental-contracts/maverickv2poollens and https://docs.mav.xyz/v2-technical-reference/v2-contracts/maverick-v2-supplemental-contracts/interfaces/imaverickv2liquiditymanager#addliquidity for more details.  Run `forge test --force --match-test Add -vv` in the solidity folder to see examples of how price movements affect the add amounts.
+
+### Determining the Amounts Needed on an Add
+
+There are two options:
+- The output of `getAddLiquidityParams` contains `tickDeltas` which array of structs, one for each price break.  The `TickDelta` struct contains `deltaAOut` and `deltaBOut` parameters that indicate the upper bound token values for that price break.
+- Use the `MaverickV2Quoter` contract: `(uint256 amountA, uint256 amountB, ) = quoter.calculateAddLiquidity(pool, addParams);` to find a more precise estimate of the token values required on add.
+
+See https://docs.mav.xyz/v2-technical-reference/v2-contracts/maverick-v2-supplemental-contracts/interfaces/imaverickv2quoter#calculateaddliquidity for more details.
+
+### Handling Slippage
+In addition to the price breakpoint lookup table that is passed in with an add liquidity call, users may also want to ensure the price is in a given range when they add liquidity.  This can be accomplished by multicalling the `checkSqrtPrice` function on the `MaverickV2RewardRouter` along with any add liquidity call:
+``` solidity
+function checkSqrtPrice(IMaverickV2Pool pool, uint256 minSqrtPrice, uint256 maxSqrtPrice) external payable;
+```
+
+See https://docs.mav.xyz/v2-technical-reference/v2-contracts/maverick-v2-supplemental-contracts/base/ichecks for more details.
+
+An example for assembling the multicall is provided in the solidity tests.
+
+
+## Programmable Pools
+
+This repo contains several examples for programmable pools where the swap fee is modified based on either an accessor manually changing the fee or based on a condition in the swap itself.  To make a programmable pool, a user calls
+
+```solidity
+function createPermissioned(
+    uint64 feeAIn,
+    uint64 feeBIn,
+    uint16 tickSpacing,
+    uint32 lookback,
+    IERC20 tokenA,
+    IERC20 tokenB,
+    int32 activeTick,
+    uint8 kinds,
+    address accessor,
+    bool permissionedLiquidity,
+    bool permissionedSwap
+) external returns (IMaverickV2Pool pool);
+```
+
+A programmable pool has a "accessor" which is a contract or wallet that can call the permissioned functions.  The accessor is able to call `setFee` on the pool if both fee values are initialized to `0`.  If `permissionedLiquidity` is set to true, then all of the liquidity related functions are only accessable by the accessor. Likewise, if `permissionedSwap` is `true` then only the accessor can access the swap function.  The convention is that, by permissioning functions on the pool, the accessor can insert their custom logic that implements special features such as fee setting or liquidity movement.
+
+In this repo, there are example accessor contracts that set the fee of the pool either 1) asynchronously with other interactions in the pool or 2) as part of pool swaps.  The advantage of 1) is that the pool remains compatible with the `MaverickV2Router` and swappers do not have to pay gas to adjust the fee.  The advantage of 2) is that the fee setting algorithm is updated automatically as swappers swap without a third party having to do anything.  There are use cases for both situations.
+
 ## Contract Addresses
 
 ```
@@ -204,10 +308,17 @@ ChainId: 11155111
 Network: sepolia
 
 WETH_11155111=0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9
-MaverickV2Factory_11155111=0x1D7472AAfe52e83BA22E707Fc77fF3F3b85551CC
-MaverickV2PoolLens_11155111=0x8deC2E5Ba4e26DD2EC19da882976EeA00d03dE88
-MaverickV2Quoter_11155111=0xfc201f0f4123bd11429A4d12Fdb6BE7145d55DD5
-MaverickV2Router_11155111=0xa5b5EfFeF7C280a297452D87eA4756eDAA52ba68
+MaverickV2Factory_11155111=0xF4C68696f02E11138de8F61FA45b542e24886913
+MaverickV2PoolLens_11155111=0xBC6B06dd675Ac620bD7a7b64bA9C077776a0Fb2a
+MaverickV2Quoter_11155111=0xAc0B678a48c83041a48dd8b810356f167F8D1FcC
+MaverickV2Router_11155111=0xa198e64B2bD063D21631003bA6677FB2F449E9d9
+MaverickV2Position_11155111=0xD3345A7f7ff5c1aEdBA2F3e9285475F2434de732
+MaverickV2BoostedPositionFactory_11155111=0xCaaeC268E338A35A45E119C8BA5159AB6Aa5AFfD
+MaverickV2IncentiveMatcherFactory_11155111=0x8a3d32ecCFB782c1DBd8Cf52A16A0488E46abA7E
+MaverickV2VotingEscrowFactory_11155111=0x5c84B3E17e0046888C3C28933e3B59B7407a8F8f
+MaverickV2RewardFactory_11155111=0x730607AB1a37B4b5779160fB50c3521Ff7A38E01
+MaverickV2RewardRouter_11155111=0xf8538077DbD5b7E018b2881292090e1B72f7de9a
+MaverickV2VotingEscrowLens_11155111=0x102f936B0fc2E74dC34E45B601FaBaA522f381F0
 ```
 
 ```
@@ -215,10 +326,17 @@ ChainId: 84532
 Network: baseSepolia
 
 WETH_84532=0x4200000000000000000000000000000000000006
-MaverickV2Factory_84532=0x1D7472AAfe52e83BA22E707Fc77fF3F3b85551CC
-MaverickV2PoolLens_84532=0x8deC2E5Ba4e26DD2EC19da882976EeA00d03dE88
-MaverickV2Quoter_84532=0xfc201f0f4123bd11429A4d12Fdb6BE7145d55DD5
-MaverickV2Router_84532=0x77f71FaaE76c4B661B52dD6471aaBE8Dcb632B97
+MaverickV2Factory_84532=0xF4C68696f02E11138de8F61FA45b542e24886913
+MaverickV2PoolLens_84532=0xBC6B06dd675Ac620bD7a7b64bA9C077776a0Fb2a
+MaverickV2Quoter_84532=0xAc0B678a48c83041a48dd8b810356f167F8D1FcC
+MaverickV2Router_84532=0x5D7784E7bdB859cb9E8779995ae95ddF68C20fDB
+MaverickV2Position_84532=0xD3345A7f7ff5c1aEdBA2F3e9285475F2434de732
+MaverickV2BoostedPositionFactory_84532=0xCaaeC268E338A35A45E119C8BA5159AB6Aa5AFfD
+MaverickV2IncentiveMatcherFactory_84532=0x8a3d32ecCFB782c1DBd8Cf52A16A0488E46abA7E
+MaverickV2VotingEscrowFactory_84532=0x5c84B3E17e0046888C3C28933e3B59B7407a8F8f
+MaverickV2RewardFactory_84532=0x730607AB1a37B4b5779160fB50c3521Ff7A38E01
+MaverickV2RewardRouter_84532=0x7377d47335AD579a7e0BbeB09350f554c4A1aAeF
+MaverickV2VotingEscrowLens_84532=0x102f936B0fc2E74dC34E45B601FaBaA522f381F0
 ```
 
 ```
