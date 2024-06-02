@@ -95,7 +95,7 @@ interface IMaverickV2Factory {
      * D18 scale.
      * @param tickSpacing Tick spacing of pool where 1.0001^tickSpacing is the
      * bin width.
-     * @param lookback Pool lookback in second in D2 scale.
+     * @param lookback Pool lookback in seconds.
      * @param tokenA Address of tokenA.
      * @param tokenB Address of tokenB.
      * @param activeTick Tick position that contains the active bins.
@@ -124,7 +124,7 @@ interface IMaverickV2Factory {
      * that is retained as an LP in D18 scale.
      * @param tickSpacing Tick spacing of pool where 1.0001^tickSpacing is the
      * bin width.
-     * @param lookback Pool lookback in second in D2 scale.
+     * @param lookback Pool lookback in seconds.
      * @param tokenA Address of tokenA.
      * @param tokenB Address of tokenB.
      * @param activeTick Tick position that contains the active bins.
@@ -153,7 +153,7 @@ interface IMaverickV2Factory {
      * D18 scale.
      * @param tickSpacing Tick spacing of pool where 1.0001^tickSpacing is the
      * bin width.
-     * @param lookback Pool lookback in second in D2 scale.
+     * @param lookback Pool lookback in seconds.
      * @param tokenA Address of tokenA.
      * @param tokenB Address of tokenB.
      * @param activeTick Tick position that contains the active bins.
@@ -186,7 +186,7 @@ interface IMaverickV2Factory {
      * that is retained as an LP in D18 scale.
      * @param tickSpacing Tick spacing of pool where 1.0001^tickSpacing is the
      * bin width.
-     * @param lookback Pool lookback in second in D2 scale.
+     * @param lookback Pool lookback in seconds.
      * @param tokenA Address of tokenA.
      * @param tokenB Address of tokenB.
      * @param activeTick Tick position that contains the active bins.
@@ -220,7 +220,7 @@ interface IMaverickV2Factory {
      * that is retained as an LP in D18 scale.
      * @param tickSpacing Tick spacing of pool where 1.0001^tickSpacing is the
      * bin width.
-     * @param lookback Pool lookback in second in D2 scale.
+     * @param lookback Pool lookback in seconds.
      * @param tokenA Address of tokenA.
      * @param tokenB Address of tokenB.
      * @param activeTick Tick position that contains the active bins.
