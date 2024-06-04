@@ -16,11 +16,11 @@ contract SwapBaseSepolia is Test {
     address public constant recipient = address(10);
 
     function setUp() public virtual {
-        uint256 forkId = vm.createFork("https://sepolia.base.org/", 10721808);
+        uint256 forkId = vm.createFork("https://sepolia.base.org/", 10855383);
         vm.selectFork(forkId);
 
-        router = IMaverickV2Router(payable(0x5D7784E7bdB859cb9E8779995ae95ddF68C20fDB));
-        quoter = IMaverickV2Quoter(0xAc0B678a48c83041a48dd8b810356f167F8D1FcC);
+        router = IMaverickV2Router(payable(0x5eDEd0d7E76C563FF081Ca01D9d12D6B404Df527));
+        quoter = IMaverickV2Quoter(0xb40AfdB85a07f37aE217E7D6462e609900dD8D7A);
 
         factory = router.factory();
         pool = factory.lookup(0, 1)[0];

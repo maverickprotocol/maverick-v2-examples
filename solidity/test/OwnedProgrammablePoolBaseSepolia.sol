@@ -32,14 +32,14 @@ contract OwnedProgrammablePoolBaseSepolia is Test {
     address public constant owner = address(11);
 
     function setUp() public virtual {
-        uint256 forkId = vm.createFork("https://sepolia.base.org/", 10721808);
+        uint256 forkId = vm.createFork("https://sepolia.base.org/", 10855383);
         vm.selectFork(forkId);
 
         accessor = new FeeModifierAccessorOwned(owner);
         accessorAddress = address(accessor);
 
-        router = IMaverickV2Router(payable(0x5D7784E7bdB859cb9E8779995ae95ddF68C20fDB));
-        rewardRouter = IMaverickV2RewardRouter(payable(0x7377d47335AD579a7e0BbeB09350f554c4A1aAeF));
+        rewardRouter = IMaverickV2RewardRouter(payable(0xE889c94e233Ca0788E9bc3899cC5BBc5eA1b1053));
+        router = IMaverickV2Router(payable(0x5eDEd0d7E76C563FF081Ca01D9d12D6B404Df527));
 
         factory = rewardRouter.factory();
 

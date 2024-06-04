@@ -9,11 +9,11 @@ import {SwapBaseSepolia} from "./SwapBaseSepolia.sol";
 
 contract SwapBaseTest is SwapBaseSepolia {
     function setUp() public override {
-        uint256 forkId = vm.createFork("https://mainnet.base.org/", 14762450);
+        uint256 forkId = vm.createFork("https://mainnet.base.org/", 15344285);
         vm.selectFork(forkId);
 
-        router = IMaverickV2Router(payable(0x77f71FaaE76c4B661B52dD6471aaBE8Dcb632B97));
-        quoter = IMaverickV2Quoter(0xfc201f0f4123bd11429A4d12Fdb6BE7145d55DD5);
+        router = IMaverickV2Router(payable(0x5eDEd0d7E76C563FF081Ca01D9d12D6B404Df527));
+        quoter = IMaverickV2Quoter(0xb40AfdB85a07f37aE217E7D6462e609900dD8D7A);
 
         factory = router.factory();
         pool = factory.lookup(0, 1)[0];

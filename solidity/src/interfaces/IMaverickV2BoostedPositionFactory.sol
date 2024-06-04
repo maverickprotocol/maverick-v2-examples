@@ -8,6 +8,7 @@ import {IMaverickV2BoostedPosition} from "./IMaverickV2BoostedPosition.sol";
 
 interface IMaverickV2BoostedPositionFactory {
     error BoostedPositionFactoryNotFactoryPool();
+    error BoostedPositionPermissionedLiquidityPool();
     error BoostedPositionFactoryKindNotSupportedByPool(uint8 poolKinds, uint8 kind);
     error BoostedPositionFactoryInvalidRatioZero(uint128 ratioZero);
     error BoostedPositionFactoryInvalidLengths(uint256 ratioLength, uint256 binIdsLength);

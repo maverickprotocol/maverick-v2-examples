@@ -28,12 +28,12 @@ contract AddToPositionBaseSepolia is Test {
     bytes constant EMPTY_PRICE_BREAKS = hex"010000000000000000000000";
 
     function setUp() public virtual {
-        uint256 forkId = vm.createFork("https://sepolia.base.org/", 10721808);
+        uint256 forkId = vm.createFork("https://sepolia.base.org/", 10855383);
         vm.selectFork(forkId);
 
-        rewardRouter = IMaverickV2RewardRouter(payable(0x7377d47335AD579a7e0BbeB09350f554c4A1aAeF));
-        quoter = IMaverickV2Quoter(0xAc0B678a48c83041a48dd8b810356f167F8D1FcC);
-        lens = IMaverickV2PoolLens(0xBC6B06dd675Ac620bD7a7b64bA9C077776a0Fb2a);
+        rewardRouter = IMaverickV2RewardRouter(payable(0xE889c94e233Ca0788E9bc3899cC5BBc5eA1b1053));
+        quoter = IMaverickV2Quoter(0xb40AfdB85a07f37aE217E7D6462e609900dD8D7A);
+        lens = IMaverickV2PoolLens(0x56eFfDD51b20705e152CAF482D9A6972e97B571C);
 
         factory = rewardRouter.factory();
         pool = factory.lookup(0, 1)[0];

@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity ^0.8.25;
 
+import {IMaverickV2Factory} from "./IMaverickV2Factory.sol";
 import {IMaverickV2Pool} from "./IMaverickV2Pool.sol";
+import {IPositionImage} from "./IPositionImage.sol";
 import {IMulticall} from "./IMulticall.sol";
 import {INft} from "./INft.sol";
 import {IMigrateBins} from "./IMigrateBins.sol";
@@ -12,6 +14,8 @@ interface IMaverickV2Position is INft, IMigrateBins, IMulticall, IChecks {
     event PositionSetData(uint256 indexed tokenId, uint256 index, PositionPoolBinIds newData);
 
     error PositionDuplicatePool(uint256 index, IMaverickV2Pool pool);
+    error PositionNotFactoryPool();
+    error PositionPermissionedLiquidityPool();
 
     struct PositionPoolBinIds {
         IMaverickV2Pool pool;
@@ -27,6 +31,16 @@ interface IMaverickV2Position is INft, IMigrateBins, IMulticall, IChecks {
         int32[] ticks;
         uint256[] liquidities;
     }
+
+    /**
+     * @notice Contract that renders the position nft svg image.
+     */
+    function positionImage() external view returns (IPositionImage);
+
+    /**
+     * @notice Pool factory.
+     */
+    function factory() external view returns (IMaverickV2Factory);
 
     /**
      * @notice Mint NFT that holds liquidity in a Maverick V2 Pool. To mint
