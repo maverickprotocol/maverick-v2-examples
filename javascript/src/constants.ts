@@ -10,12 +10,12 @@ export const CONTRACTS = {
     MaverickV2PoolLens: '',
   },
   [Network.BASE]: {
-    MaverickV2Factory: '0x1D7472AAfe52e83BA22E707Fc77fF3F3b85551CC',
-    MaverickV2PoolLens: '0x8deC2E5Ba4e26DD2EC19da882976EeA00d03dE88',
+    MaverickV2Factory: '0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e',
+    MaverickV2PoolLens: '0x56eFfDD51b20705e152CAF482D9A6972e97B571C',
   },
   [Network.SEPOLIA]: {
-    MaverickV2Factory: '0xF4C68696f02E11138de8F61FA45b542e24886913',
-    MaverickV2PoolLens: '0xBC6B06dd675Ac620bD7a7b64bA9C077776a0Fb2a',
+    MaverickV2Factory: '0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e',
+    MaverickV2PoolLens: '0x56eFfDD51b20705e152CAF482D9A6972e97B571C',
   },
 };
 
