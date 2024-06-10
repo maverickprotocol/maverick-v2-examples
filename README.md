@@ -2,7 +2,7 @@
 
 ## Listing Pools
 
-For a given chain, there is a deployment of a `MaverickV2Factory` which is used to deploy pools.  
+For a given chain, there is a deployment of a `MaverickV2Factory` which is used to deploy pools.
 To get the listing of pools on the factory, there are two options provided by the `MaverickV2Factory` interface:
 
 1) Paginate through pool addresses for a given token pair
@@ -61,13 +61,13 @@ function tokenB() external view returns (IERC20);
 
 For instance, `pool.getState().reserveA` and `pool.getState().reserveB` indicate how much reserve of each token is in the pool.
 
-Additionally, the `MaverickV2PoolLens` contract can be used to extract the current price of the pool 
+Additionally, the `MaverickV2PoolLens` contract can be used to extract the current price of the pool
 
 ```solidity
 function getPoolPrice(IMaverickV2Pool pool) external view returns (uint256 price);
 ```
 
-There are other helper functions on the `MaverickV2PoolLens` that provide pool insights.  
+There are other helper functions on the `MaverickV2PoolLens` that provide pool insights.
 For instance, to extract the reserves for the ticks near the active tick, a user can call `lens.getTicksAroundActive`:
 
 ```solidity
@@ -87,7 +87,7 @@ There are two options to swap with a pool:
 1) Use the `MaverickV2Router` interface.
 2) Create your own smart contract to interact with Maverick V2 pools.
 
-The `MaverickV2Router` has several options for swapping and support both single-hop and multi-hop swaps where the user specifies either hte desired input amount they want to spend or the desired output amount they want to receive. 
+The `MaverickV2Router` has several options for swapping and support both single-hop and multi-hop swaps where the user specifies either hte desired input amount they want to spend or the desired output amount they want to receive.
 
 The function for swapping with a single pool by specifying the desired spent amount is:
 ```solidity
@@ -104,7 +104,7 @@ See https://docs.mav.xyz/v2-technical-reference/v2-contracts/maverick-v2-supplem
 
 ### Pool Swap
 
-The raw swap interface is 
+The raw swap interface is
 
 ```solidity
 struct SwapParams {
@@ -160,13 +160,13 @@ tokenAIn
     : pool.getState().activeTick - 30;
 ```
 
-The caveat with option 2) is that, once the `tickLimit` is hit, no further liquidity will swap.  
+The caveat with option 2) is that, once the `tickLimit` is hit, no further liquidity will swap.
 
-So if the swap terminates early on the limit, neither the `exactInput` or `exactOutput` would have been satisfied.  
+So if the swap terminates early on the limit, neither the `exactInput` or `exactOutput` would have been satisfied.
 
 When the user uses the callback to fund the swap, this is no problem as the callback will only ask for as much input as is needed for the swap.
 
-However, when the users funds the swap by first transfering assets to the pool, and then setting a limit, the user will have overpaid for the swap and will have no way to recover their excess payment.  
+However, when the users funds the swap by first transfering assets to the pool, and then setting a limit, the user will have overpaid for the swap and will have no way to recover their excess payment.
 
 **For this reason, users should be very careful to use the `tickLimit` option without checking that the output of the swap meets their expectations. e.g., `if (amountOut < amountOutMinimum) revert TooLittleReceived(amountOutMinimum, amountOut);`**
 
@@ -303,6 +303,9 @@ In this repo, there are example accessor contracts that set the fee of the pool 
 
 ## Contract Addresses
 
+
+### Testnets
+
 ```
 ChainId: 11155111
 Network: sepolia
@@ -319,6 +322,24 @@ MaverickV2VotingEscrowFactory_11155111=0x5c84B3E17e0046888C3C28933e3B59B7407a8F8
 MaverickV2RewardFactory_11155111=0x01c082da273Da86b05D16D4C3CBD6c099EE0867B
 MaverickV2RewardRouter_11155111=0xcEC0eA8e399B572fd614eA7A5820E0cB2Cd5e9C5
 MaverickV2VotingEscrowLens_11155111=0x102f936B0fc2E74dC34E45B601FaBaA522f381F0
+```
+
+```
+ChainId: 421614
+Network: arbitrumSepolia
+
+WETH_421614=0x997FE31Adda5c969691768Ad1140273290952333
+MaverickV2Factory_421614=0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e
+MaverickV2PoolLens_421614=0x56eFfDD51b20705e152CAF482D9A6972e97B571C
+MaverickV2Quoter_421614=0xb40AfdB85a07f37aE217E7D6462e609900dD8D7A
+MaverickV2Router_421614=0x9ce6a2Df87Ab67C5C8317418524069793bc13DDc
+MaverickV2Position_421614=0x116193c58B40D50687c0433B2aa0cC4AE00bC32c
+MaverickV2BoostedPositionFactory_421614=0x018ab609049a3341D51d2919e7e1D510cE149E63
+MaverickV2IncentiveMatcherFactory_421614=0xC54ef5ce604Eed4f4973440D79E2F3cDAc254537
+MaverickV2VotingEscrowFactory_421614=0xDC2fc6BDA51dd745ac553722b76b7F280815fB17
+MaverickV2RewardFactory_421614=0xaEfe9F62C60b8E40F1a18F8BAf9597dbD0cbc273
+MaverickV2RewardRouter_421614=0xa5A5cbf6E3342EB8c4FEB91081131B618fE4E4F4
+MaverickV2VotingEscrowLens_421614=0x102f936B0fc2E74dC34E45B601FaBaA522f381F0
 ```
 
 ```
@@ -340,6 +361,44 @@ MaverickV2VotingEscrowLens_84532=0x102f936B0fc2E74dC34E45B601FaBaA522f381F0
 ```
 
 ```
+ChainId: 300
+Network: zkSyncSepolia
+
+WETH_300=0x53F7e72C7ac55b44c7cd73cC13D4EF4b121678e6
+MaverickV2PoolLens_300=0xfa75ac4Bf2Eb210B9D5db223b94Ebf08351dCffc
+MaverickV2Quoter_300=0x2D2ED310f4ED89c6460154D8f3AA98d1A254cd1e
+MaverickV2Router_300=0xC7F2F69C4A07362d1b8144e78564D166f83aFb7A
+MaverickV2Position_300=0xD61Fa8Fb76F90ae007E6CeEA4F8FFf7Fcc5BB1C9
+MaverickV2BoostedPositionFactory_300=0xCc1c16217939C1dE67E7F0C11cFA6a96eD4C2A76
+MaverickV2IncentiveMatcherFactory_300=0xF39554172E26d3b06359DB65a620412d248E7b30
+MaverickV2VotingEscrowFactory_300=0x7d88e512949763C4dF1F431E873761cC829B0BF6
+MaverickV2RewardFactory_300=0x65C4ca3271bFCa7c4050d0cFf721fA99402F312C
+MaverickV2RewardRouter_300=0x145eAAACd88939E83ad3abe14aC5295De30C932A
+MaverickV2VotingEscrowLens_300=0x852eB4863d5F3c0924fDfeD393E09e32c8e20e4A
+MaverickV2Factory_300=0x6D121BcABEf869518414a747e30c4568869aE0B4
+```
+
+```
+ChainId: 97
+Network: bnbt
+
+WETH_97=0xf80880c41ad3f470b9aac9393c4dec82b334b436
+MaverickV2Factory_97=0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e
+MaverickV2PoolLens_97=0x56eFfDD51b20705e152CAF482D9A6972e97B571C
+MaverickV2Quoter_97=0xb40AfdB85a07f37aE217E7D6462e609900dD8D7A
+MaverickV2Router_97=0xCff049230d142965c2c73b1b801557062E824a71
+MaverickV2Position_97=0x116193c58B40D50687c0433B2aa0cC4AE00bC32c
+MaverickV2BoostedPositionFactory_97=0x018ab609049a3341D51d2919e7e1D510cE149E63
+MaverickV2IncentiveMatcherFactory_97=0xae338F6Ac0bD95e3F4514D0D17557672e9B2EF5f
+MaverickV2VotingEscrowFactory_97=0x5c84B3E17e0046888C3C28933e3B59B7407a8F8f
+MaverickV2RewardFactory_97=0x01c082da273Da86b05D16D4C3CBD6c099EE0867B
+MaverickV2RewardRouter_97=0xe8fE5ED01b9D8D328C4ff06BE22f0FF03b8ed715
+MaverickV2VotingEscrowLens_97=0x102f936B0fc2E74dC34E45B601FaBaA522f381F0
+```
+
+### Mainnets
+
+```
 ChainId: 8453
 Network: base
 
@@ -355,4 +414,78 @@ MaverickV2VotingEscrowFactory_8453=0x442bB8a0A834f34562c66B7543cD652D5774b2b9
 MaverickV2RewardFactory_8453=0x263503113743d60E70515297faFdEF3D6c0f9aBe
 MaverickV2RewardRouter_8453=0x8E54B8b8DF3Cd24449D6918440B28C15471C0cF7
 MaverickV2VotingEscrowLens_8453=0x102f936B0fc2E74dC34E45B601FaBaA522f381F0
+```
+
+```
+ChainId: 56
+Network: bnb
+
+WETH_56=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c
+MaverickV2Factory_56=0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e
+MaverickV2PoolLens_56=0x56eFfDD51b20705e152CAF482D9A6972e97B571C
+MaverickV2Quoter_56=0xb40AfdB85a07f37aE217E7D6462e609900dD8D7A
+MaverickV2Router_56=0x374bFCc264678c67a582D067AD91f1951bC6b20f
+MaverickV2Position_56=0x116193c58B40D50687c0433B2aa0cC4AE00bC32c
+MaverickV2BoostedPositionFactory_56=0x018ab609049a3341D51d2919e7e1D510cE149E63
+MaverickV2IncentiveMatcherFactory_56=0x0C9Fbf7e420f7B8F940375028Ff88cCf4E0d2ca6
+MaverickV2VotingEscrowFactory_56=0x790d33B4271EDD0a611d91E971F2143D8a7DD936
+MaverickV2RewardFactory_56=0x0760aDD78a437ae38d4938Ee1189d493d5952543
+MaverickV2RewardRouter_56=0x73156540e92e68B5C8D7587376b355bf050701cF
+MaverickV2VotingEscrowLens_56=0x102f936B0fc2E74dC34E45B601FaBaA522f381F0
+```
+
+```
+ChainId: 1
+Network: ethMainnet
+Time: 2024-06-05T18:46:52.961Z
+
+
+WETH_1=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2
+MaverickV2Factory_1=0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e
+MaverickV2PoolLens_1=0x56eFfDD51b20705e152CAF482D9A6972e97B571C
+MaverickV2Quoter_1=0xb40AfdB85a07f37aE217E7D6462e609900dD8D7A
+MaverickV2Router_1=0x62e31802c6145A2D5E842EeD8efe01fC224422fA
+MaverickV2Position_1=0x116193c58B40D50687c0433B2aa0cC4AE00bC32c
+MaverickV2BoostedPositionFactory_1=0x018ab609049a3341D51d2919e7e1D510cE149E63
+MaverickV2IncentiveMatcherFactory_1=0x09BA1b1F93f958A774fF74dd04166C69793C8796
+MaverickV2VotingEscrowFactory_1=0x451d47fd6207781dc053551edFD98De8d5EB4Cda
+MaverickV2RewardFactory_1=0x483A5061a2460613845bC4A975E26D9d57Dc0C6a
+MaverickV2RewardRouter_1=0xf013d2a8004D776628c5f9dEb405bD190c8b3C9F
+MaverickV2VotingEscrowLens_1=0x102f936B0fc2E74dC34E45B601FaBaA522f381F0
+```
+
+```
+ChainId: 42161
+Network: arbitrum
+
+WETH_42161=0x82aF49447D8a07e3bd95BD0d56f35241523fBab1
+MaverickV2Factory_42161=0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e
+MaverickV2PoolLens_42161=0x56eFfDD51b20705e152CAF482D9A6972e97B571C
+MaverickV2Quoter_42161=0xb40AfdB85a07f37aE217E7D6462e609900dD8D7A
+MaverickV2Router_42161=0x5c3b380e5Aeec389d1014Da3Eb372FA2C9e0fc76
+MaverickV2Position_42161=0x116193c58B40D50687c0433B2aa0cC4AE00bC32c
+MaverickV2BoostedPositionFactory_42161=0x018ab609049a3341D51d2919e7e1D510cE149E63
+MaverickV2IncentiveMatcherFactory_42161=0x709756c154ca15d3cc4266A704152ae8CFe0EFfc
+MaverickV2VotingEscrowFactory_42161=0x51E4AE1BA70D657eEF8e31a2Cb6a8b9AA61aB84e
+MaverickV2RewardFactory_42161=0xFd113D43D4631a4043aBeF2dbCED79099CCFF26e
+MaverickV2RewardRouter_42161=0xcdC6CBec182bE0AA71e3B095794a2F70feF51248
+MaverickV2VotingEscrowLens_42161=0x102f936B0fc2E74dC34E45B601FaBaA522f381F0
+```
+
+```
+ChainId: 324
+Network: zkSync
+
+WETH_324=0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91
+MaverickV2PoolLens_324=0xEA82AB7C3fBD45C0cEd0c4489c4dfe18d1aeD206
+MaverickV2Quoter_324=0x3e1c4b57c9d9624f2841f07C6328D3c25ca30C79
+MaverickV2Router_324=0xad8262e847676E7eDdAFEe664c4fd492789260ba
+MaverickV2Position_324=0x4D93c58B348d99969257cec007cFb31B410b21A0
+MaverickV2BoostedPositionFactory_324=0x4CBEE7BE5d9d4f5b5dEAd8ff1d2D45FE0A2CB6B5
+MaverickV2IncentiveMatcherFactory_324=0x8c03b6a8e64f0d1A391781d4eFC54D8740b2C43C
+MaverickV2VotingEscrowFactory_324=0x521B444d5f9bb4B36CDd771f4D85cCd0B291FB92
+MaverickV2RewardFactory_324=0x142e6B1F628d09A1E82e32877eDe425f62A5ac38
+MaverickV2RewardRouter_324=0x1525C0D047cE04a3720EDc7934831F3711ae0265
+MaverickV2VotingEscrowLens_324=0x74E56528CDd2F831cc4ecc9414bCE9C4d540ceC7
+MaverickV2Factory_324=0x7A6902af768a06bdfAb4F076552036bf68D1dc56
 ```
