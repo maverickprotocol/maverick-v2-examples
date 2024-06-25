@@ -301,6 +301,146 @@ A programmable pool has a "accessor" which is a contract or wallet that can call
 
 In this repo, there are example accessor contracts that set the fee of the pool either 1) asynchronously with other interactions in the pool or 2) as part of pool swaps.  The advantage of 1) is that the pool remains compatible with the `MaverickV2Router` and swappers do not have to pay gas to adjust the fee.  The advantage of 2) is that the fee setting algorithm is updated automatically as swappers swap without a third party having to do anything.  There are use cases for both situations.
 
+## User Assets
+
+There are four mechanisms in Maverick V2 where users can have asset:
+- In a pool as a non-transferable raw position
+- In the Pool Position contract as a transferable NFT
+- In a Boosted Position contract as a transferable ERC-20 LP token
+- In a Reward contract where Boosted Position tokens are staked to earn incentives
+- In a VotingEscrow contract
+
+The `javascript` folder provides examples using ethers to recover assets for a given user in each of these mechanisms.
+
+### MaverickV2VotingEscrow Contract
+
+The `MaverickV2VotingEscrowFactory` contract lets user create arbitrary ve tokens for any underlying "base" token.  For example, the `Mav` token has a corresponding `veMav` token where `Mav` can be staked to gain voting power and to accumulate rewards.
+
+To find the amount of underlying base token a user has, one must paginate through that user's "lockup" and sum the base token `lockup.amount` across all active lockups.
+
+```solidity
+/**
+ * @notice This function retrieves paginated lockup information for a specific
+ * account and lockup index range within a provided Maverick V2 Voting
+ * Escrow (veToken) contract.
+ * @param ve The address of the IMaverickV2VotingEscrow contract for which to retrieve lockup information.
+ * @param staker The address of the account for which to retrieve lockup information.
+ * @param startIndex The starting index for the desired range of lockups.
+ * @param endIndex The ending index for the desired range of lockups.
+ * @return returnElements An array of `IMaverickV2VotingEscrow.Lockup`
+ * structs containing details about the lockups within the specified index
+ * range for the account.
+ */
+function getLockups(
+    IMaverickV2VotingEscrow ve,
+    address staker,
+    uint256 startIndex,
+    uint256 endIndex
+) external view returns (IMaverickV2VotingEscrow.Lockup[] memory returnElements);
+
+struct Lockup {
+    uint128 amount;
+    uint128 end;
+    uint256 votes;
+}
+```
+
+### MaverickV2Position Contract
+
+User positions are minted to an NFT and this NFT references a storage mappings of pools and binIds.  A given NFT can store assets on multiple pools, but it is more conventional for each NFT to only reference one pool.
+
+The `tokenIdPositionInformation` function on the MaverickV2Position returns information about a given NFT's assets for a given `pool` index.  Again, the convention is for only `index=0` to have liquidity associated with it.
+
+```solidity
+function tokenIdPositionInformation(
+    uint256 tokenId,
+    uint256 index
+) external view returns (PositionFullInformation memory output);
+```
+
+```solidity
+struct PositionFullInformation {
+    PositionPoolBinIds poolBinIds;
+    uint256 amountA;
+    uint256 amountB;
+    uint256[] binAAmounts;
+    uint256[] binBAmounts;
+    int32[] ticks;
+    uint256[] liquidities;
+}
+```
+
+
+### MaverickV2BoostedPosition Contract
+
+Pool liquidity can also be stored in a BoostedPosition contract which has an ERC-20 interface where the ERC-20 token represents a user's ownership stake in the BP.  The `MaverickV2BoostedPositionLens` contract has helper functions that return information about a given user's stake in the BP in terms of the underlying `tokenA` and `tokenB` assets.  Specically, `boostedPositionUserInformation`:
+
+```solidity
+function boostedPositionUserInformation(
+    IMaverickV2BoostedPosition bp,
+    address user
+) external view returns (BoostedPositionInformation memory info, uint256 userAmountA, uint256 userAmountB);
+
+struct BoostedPositionInformation {
+    IMaverickV2Pool pool;
+    IERC20 tokenA;
+    IERC20 tokenB;
+    uint8 kind;
+    uint128[] binBalances;
+    uint32[] binIds;
+    int32[] ticks;
+    uint256 amountA;
+    uint256 amountB;
+    uint256[] binAAmounts;
+    uint256[] binBAmounts;
+}
+```
+
+### MaverickV2Reward Contract
+
+The `MaverickV2Reward` contract allows users to stake their BP tokens in order to earn time-disbursed incentives.  `MaverickV2Reward` positions are not fungible and are represented by transferable NFTs which have an ERC-721 interface.  When staking the `MaverickV2Reward` contract, BP tokens are sent to the contract and are tracked per NFT ID.  To compute a given user's underlying balance, simply multiply the underlying assets the `MaverickV2Reward` contract owns in the BP and pro rate that amount by the user's proportion of the stake balance.
+
+To find a user's underlying balance of the stake token, the follow stake balance function are used:
+
+```solidity
+/**
+ * @notice Balance of stake for a given `tokenId` account.
+ */
+function stakeBalanceOf(uint256 tokenId) external view returns (uint256 balance);
+
+/**
+ * @notice Sum of all balances across all tokenIds.
+ */
+function stakeTotalSupply() external view returns (uint256 supply);
+```
+
+
+### Raw Pool Position
+
+A raw pool position occurs on `pool.addLiquidity` and the resulting event is 
+```solidity
+event PoolAddLiquidity(
+    address sender,
+    address recipient,
+    uint256 subaccount,
+    AddLiquidityParams params,
+    uint256 tokenAAmount,
+    uint256 tokenBAmount,
+    uint32[] binIds
+);
+```
+
+After the liquidity has been added, the recipient's pool ownership in a given bin can be recovered with a call to
+```solidity
+function balanceOf(
+    address user,
+    uint256 subaccount,
+    uint32 binId
+) external view returns (uint128 lpTokenBalance);
+```
+
+To find the token balance, we must also collect the tick balance for this bin and the pro rata ownership the bin owns of the tick.
+
 ## Contract Addresses
 
 
