@@ -1,0 +1,308 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2BoostedPositionFactory",
+        "name": "boostedPositionFactory_",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IMaverickV2VotingEscrowFactory",
+        "name": "votingEscrowFactory_",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "RewardFactoryInvalidVeBaseTokenPair",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "RewardFactoryNotFactoryBoostedPosition",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "RewardFactoryRewardAndVeLengthsAreNotEqual",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "RewardFactoryTooManyRewardTokens",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "contract IERC20",
+        "name": "stakeToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "contract IERC20[]",
+        "name": "rewardTokens",
+        "type": "address[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "contract IMaverickV2VotingEscrow[]",
+        "name": "veTokens",
+        "type": "address[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "contract IMaverickV2Reward",
+        "name": "rewardsContract",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isFactoryBoostedPosition",
+        "type": "bool"
+      }
+    ],
+    "name": "CreateRewardsContract",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "boostedPositionFactory",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2BoostedPositionFactory",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "boostedPositionRewards",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2Reward[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "boostedPositionRewardsCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "stakeToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IERC20[]",
+        "name": "rewardTokens",
+        "type": "address[]"
+      },
+      {
+        "internalType": "contract IMaverickV2VotingEscrow[]",
+        "name": "veTokens",
+        "type": "address[]"
+      }
+    ],
+    "name": "createRewardsContract",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2Reward",
+        "name": "rewardsContract",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2Reward",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isFactoryContract",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "nonBoostedPositionRewards",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2Reward[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nonBoostedPositionRewardsCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "rewards",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2Reward[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "rewardsCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "stakeToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "rewardsForStakeToken",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2Reward[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "stakeToken",
+        "type": "address"
+      }
+    ],
+    "name": "rewardsForStakeTokenCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "votingEscrowFactory",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2VotingEscrowFactory",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

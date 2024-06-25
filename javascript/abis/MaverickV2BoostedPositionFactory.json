@@ -1,0 +1,312 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2Factory",
+        "name": "_poolFactory",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint32",
+        "name": "lastBinId",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint32",
+        "name": "thisBinId",
+        "type": "uint32"
+      }
+    ],
+    "name": "BoostedPositionFactoryBinIdsNotSorted",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "inputKind",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "binKind",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint32",
+        "name": "binId",
+        "type": "uint32"
+      }
+    ],
+    "name": "BoostedPositionFactoryInvalidBinKind",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "kind",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ratiosLength",
+        "type": "uint256"
+      }
+    ],
+    "name": "BoostedPositionFactoryInvalidLengthForKind",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "ratioLength",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "binIdsLength",
+        "type": "uint256"
+      }
+    ],
+    "name": "BoostedPositionFactoryInvalidLengths",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint128",
+        "name": "ratioZero",
+        "type": "uint128"
+      }
+    ],
+    "name": "BoostedPositionFactoryInvalidRatioZero",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "poolKinds",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "kind",
+        "type": "uint8"
+      }
+    ],
+    "name": "BoostedPositionFactoryKindNotSupportedByPool",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BoostedPositionFactoryNotFactoryPool",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BoostedPositionPermissionedLiquidityPool",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32[]",
+        "name": "binIds",
+        "type": "uint32[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint128[]",
+        "name": "ratios",
+        "type": "uint128[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "kind",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "contract IMaverickV2BoostedPosition",
+        "name": "boostedPosition",
+        "type": "address"
+      }
+    ],
+    "name": "CreateBoostedPosition",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      }
+    ],
+    "name": "boostedPositionsByPoolCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "boostedPositionsCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32[]",
+        "name": "binIds",
+        "type": "uint32[]"
+      },
+      {
+        "internalType": "uint128[]",
+        "name": "ratios",
+        "type": "uint128[]"
+      },
+      {
+        "internalType": "uint8",
+        "name": "kind",
+        "type": "uint8"
+      }
+    ],
+    "name": "createBoostedPosition",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2BoostedPosition",
+        "name": "boostedPosition",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2BoostedPosition",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isFactoryBoostedPosition",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "lookup",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2BoostedPosition[]",
+        "name": "returnBoostedPositions",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "lookup",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2BoostedPosition[]",
+        "name": "returnBoostedPositions",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "poolFactory",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2Factory",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

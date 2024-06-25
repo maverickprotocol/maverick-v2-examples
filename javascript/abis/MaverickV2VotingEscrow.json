@@ -1,0 +1,2063 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "__name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "__symbol",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      }
+    ],
+    "name": "AddressEmptyCode",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "AddressInsufficientBalance",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "CheckpointUnorderedInsertion",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ECDSAInvalidSignature",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "length",
+        "type": "uint256"
+      }
+    ],
+    "name": "ECDSAInvalidSignatureLength",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "s",
+        "type": "bytes32"
+      }
+    ],
+    "name": "ECDSAInvalidSignatureS",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "increasedSupply",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "cap",
+        "type": "uint256"
+      }
+    ],
+    "name": "ERC20ExceededSafeSupply",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "allowance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "needed",
+        "type": "uint256"
+      }
+    ],
+    "name": "ERC20InsufficientAllowance",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "balance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "needed",
+        "type": "uint256"
+      }
+    ],
+    "name": "ERC20InsufficientBalance",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "approver",
+        "type": "address"
+      }
+    ],
+    "name": "ERC20InvalidApprover",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      }
+    ],
+    "name": "ERC20InvalidReceiver",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "ERC20InvalidSender",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      }
+    ],
+    "name": "ERC20InvalidSpender",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "timepoint",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint48",
+        "name": "clock",
+        "type": "uint48"
+      }
+    ],
+    "name": "ERC5805FutureLookup",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ERC6372InconsistentClock",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FailedInnerCall",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "currentNonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "InvalidAccountNonce",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidShortString",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MathOverflowedMulDiv",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "x",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "y",
+        "type": "uint256"
+      }
+    ],
+    "name": "PRBMath_MulDiv18_Overflow",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "UD60x18",
+        "name": "x",
+        "type": "uint256"
+      }
+    ],
+    "name": "PRBMath_UD60x18_Exp2_InputTooBig",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "UD60x18",
+        "name": "x",
+        "type": "uint256"
+      }
+    ],
+    "name": "PRBMath_UD60x18_Log_InputTooSmall",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ReentrancyGuardReentrantCall",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "bits",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "SafeCastOverflowedUintDowncast",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "SafeERC20FailedOperation",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "str",
+        "type": "string"
+      }
+    ],
+    "name": "StringTooLong",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "expiry",
+        "type": "uint256"
+      }
+    ],
+    "name": "VotesExpiredSignature",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "batchIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "VotingEscrowIncentiveAlreadyClaimed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "timestamp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "claimTimepoint",
+        "type": "uint256"
+      }
+    ],
+    "name": "VotingEscrowIncentiveTimepointInFuture",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "VotingEscrowInvalidAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "VotingEscrowInvalidAmount",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minDuration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxDuration",
+        "type": "uint256"
+      }
+    ],
+    "name": "VotingEscrowInvalidDuration",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newEnd",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "oldEnd",
+        "type": "uint256"
+      }
+    ],
+    "name": "VotingEscrowInvalidEndTime",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "incentiveToken",
+        "type": "address"
+      }
+    ],
+    "name": "VotingEscrowInvalidExtendIncentiveToken",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "batchIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "VotingEscrowNoIncentivesToClaim",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "VotingEscrowNoSupplyAtTimepoint",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "extender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      }
+    ],
+    "name": "VotingEscrowNotApprovedExtender",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "VotingEscrowStakeAlreadyRedeemed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "currentTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endTime",
+        "type": "uint256"
+      }
+    ],
+    "name": "VotingEscrowStakeStillLocked",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "VotingEscrowTransferNotSupported",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "batchIndex",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "claimAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "ClaimIncentiveBatch",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "timepoint",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "stakeDuration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "contract IERC20",
+        "name": "incentiveToken",
+        "type": "address"
+      }
+    ],
+    "name": "CreateNewIncentiveBatch",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "delegator",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "fromDelegate",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "toDelegate",
+        "type": "address"
+      }
+    ],
+    "name": "DelegateChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "delegate",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "previousVotes",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newVotes",
+        "type": "uint256"
+      }
+    ],
+    "name": "DelegateVotesChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "EIP712DomainChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "staker",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "extender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "newState",
+        "type": "bool"
+      }
+    ],
+    "name": "ExtenderApproval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "name": "Stake",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "name": "Unstake",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "CLOCK_MODE",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "MAX_STAKE_DURATION",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "MIN_STAKE_DURATION",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "YEAR_BASE",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      }
+    ],
+    "name": "allowance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "extender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      }
+    ],
+    "name": "approveExtender",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "baseToken",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32",
+        "name": "pos",
+        "type": "uint32"
+      }
+    ],
+    "name": "checkpoints",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint48",
+            "name": "_key",
+            "type": "uint48"
+          },
+          {
+            "internalType": "uint208",
+            "name": "_value",
+            "type": "uint208"
+          }
+        ],
+        "internalType": "struct Checkpoints.Checkpoint208",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "batchIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "claimAndBatchInformation",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "timepointInPast",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "hasClaimed",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint128",
+            "name": "claimAmount",
+            "type": "uint128"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.ClaimInformation",
+        "name": "claimInformation",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "totalIncentives",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "stakeDuration",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint48",
+            "name": "claimTimepoint",
+            "type": "uint48"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "incentiveToken",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.BatchInformation",
+        "name": "batchInformation",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "batchIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "claimFromIncentiveBatch",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "lockup",
+        "type": "tuple"
+      },
+      {
+        "internalType": "uint128",
+        "name": "claimAmount",
+        "type": "uint128"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "batchIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      }
+    ],
+    "name": "claimFromIncentiveBatchAndExtend",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "lockup",
+        "type": "tuple"
+      },
+      {
+        "internalType": "uint128",
+        "name": "claimAmount",
+        "type": "uint128"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "clock",
+    "outputs": [
+      {
+        "internalType": "uint48",
+        "name": "",
+        "type": "uint48"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint128",
+        "name": "amount",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint48",
+        "name": "timepoint",
+        "type": "uint48"
+      },
+      {
+        "internalType": "uint128",
+        "name": "stakeDuration",
+        "type": "uint128"
+      },
+      {
+        "internalType": "contract IERC20",
+        "name": "incentiveToken",
+        "type": "address"
+      }
+    ],
+    "name": "createIncentiveBatch",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "decimals",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "delegatee",
+        "type": "address"
+      }
+    ],
+    "name": "delegate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "delegatee",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "expiry",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "v",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "s",
+        "type": "bytes32"
+      }
+    ],
+    "name": "delegateBySig",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "delegates",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "eip712Domain",
+    "outputs": [
+      {
+        "internalType": "bytes1",
+        "name": "fields",
+        "type": "bytes1"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "version",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "chainId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "verifyingContract",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "salt",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "extensions",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint128",
+        "name": "amount",
+        "type": "uint128"
+      }
+    ],
+    "name": "extendForAccount",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "newLockup",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint128",
+        "name": "amount",
+        "type": "uint128"
+      }
+    ],
+    "name": "extendForSender",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "newLockup",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "staker",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "getLockup",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "lockup",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "timepoint",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPastBalanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "balance",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "timepoint",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPastTotalSupply",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "timepoint",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPastVotes",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "getVotes",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "incentiveBatchCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "batchIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "incentiveBatchInformation",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "totalIncentives",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "stakeDuration",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint48",
+            "name": "claimTimepoint",
+            "type": "uint48"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "incentiveToken",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.BatchInformation",
+        "name": "info",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "incentiveToken",
+        "type": "address"
+      }
+    ],
+    "name": "incentiveTotals",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "totalIncentives",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "claimedIncentives",
+            "type": "uint128"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.TokenIncentiveTotals",
+        "name": "totals",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "extender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isApprovedExtender",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "staker",
+        "type": "address"
+      }
+    ],
+    "name": "lockupCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "lockupIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "merge",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "newLockup",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "data",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "multicall",
+    "outputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "results",
+        "type": "bytes[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "nonces",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "numCheckpoints",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint128",
+        "name": "amount",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      }
+    ],
+    "name": "previewVotes",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "lockup",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "extender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      }
+    ],
+    "name": "revokeExtender",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint128",
+        "name": "amount",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      }
+    ],
+    "name": "stake",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "lockup",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint128",
+        "name": "amount",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      }
+    ],
+    "name": "stakeToSender",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "lockup",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "startTimestamp",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      }
+    ],
+    "name": "unstake",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "lockup",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "lockupId",
+        "type": "uint256"
+      }
+    ],
+    "name": "unstakeToSender",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup",
+        "name": "lockup",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

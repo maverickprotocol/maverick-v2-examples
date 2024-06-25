@@ -1,0 +1,1374 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "contract IPositionImage",
+        "name": "_positionImage",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IMaverickV2Factory",
+        "name": "_factory",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      }
+    ],
+    "name": "AddressEmptyCode",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duplicateEntry",
+        "type": "uint256"
+      }
+    ],
+    "name": "ArrayElementsNotUnique",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ERC721EnumerableForbiddenBatchMint",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "ERC721IncorrectOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ERC721InsufficientApproval",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "approver",
+        "type": "address"
+      }
+    ],
+    "name": "ERC721InvalidApprover",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "ERC721InvalidOperator",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "ERC721InvalidOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      }
+    ],
+    "name": "ERC721InvalidReceiver",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "ERC721InvalidSender",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ERC721NonexistentToken",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "ERC721OutOfBoundsIndex",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FailedInnerCall",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MathOverflowedMulDiv",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "blockTimestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "PositionDeadlinePassed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      }
+    ],
+    "name": "PositionDuplicatePool",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sqrtPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minSqrtPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxSqrtPrice",
+        "type": "uint256"
+      }
+    ],
+    "name": "PositionExceededPriceBounds",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PositionNotFactoryPool",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PositionPermissionedLiquidityPool",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "bits",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "SafeCastOverflowedUintDowncast",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int256",
+        "name": "tick",
+        "type": "int256"
+      }
+    ],
+    "name": "TickMaxExceeded",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "approved",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "ApprovalForAll",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "PositionClearData",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "contract IMaverickV2Pool",
+            "name": "pool",
+            "type": "address"
+          },
+          {
+            "internalType": "uint32[]",
+            "name": "binIds",
+            "type": "uint32[]"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct IMaverickV2Position.PositionPoolBinIds",
+        "name": "newData",
+        "type": "tuple"
+      }
+    ],
+    "name": "PositionSetData",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32[]",
+        "name": "binIds",
+        "type": "uint32[]"
+      }
+    ],
+    "name": "appendTokenIdData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "checkAuthorized",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      }
+    ],
+    "name": "checkDeadline",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minSqrtPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxSqrtPrice",
+        "type": "uint256"
+      }
+    ],
+    "name": "checkSqrtPrice",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "factory",
+    "outputs": [
+      {
+        "internalType": "contract IMaverickV2Factory",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getApproved",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "proportionD18",
+        "type": "uint256"
+      }
+    ],
+    "name": "getRemoveParams",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint32[]",
+            "name": "binIds",
+            "type": "uint32[]"
+          },
+          {
+            "internalType": "uint128[]",
+            "name": "amounts",
+            "type": "uint128[]"
+          }
+        ],
+        "internalType": "struct IMaverickV2Pool.RemoveLiquidityParams",
+        "name": "params",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTokenIdData",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "contract IMaverickV2Pool",
+            "name": "pool",
+            "type": "address"
+          },
+          {
+            "internalType": "uint32[]",
+            "name": "binIds",
+            "type": "uint32[]"
+          }
+        ],
+        "internalType": "struct IMaverickV2Position.PositionPoolBinIds[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTokenIdData",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "contract IMaverickV2Pool",
+            "name": "pool",
+            "type": "address"
+          },
+          {
+            "internalType": "uint32[]",
+            "name": "binIds",
+            "type": "uint32[]"
+          }
+        ],
+        "internalType": "struct IMaverickV2Position.PositionPoolBinIds",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "isApprovedForAll",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32[]",
+        "name": "binIds",
+        "type": "uint32[]"
+      },
+      {
+        "internalType": "uint32",
+        "name": "maxRecursion",
+        "type": "uint32"
+      }
+    ],
+    "name": "migrateBinsUpStack",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32[]",
+        "name": "binIds",
+        "type": "uint32[]"
+      }
+    ],
+    "name": "mint",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "data",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "multicall",
+    "outputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "results",
+        "type": "bytes[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nextTokenId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "nextTokenId_",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ownerOf",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "positionImage",
+    "outputs": [
+      {
+        "internalType": "contract IPositionImage",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint32[]",
+            "name": "binIds",
+            "type": "uint32[]"
+          },
+          {
+            "internalType": "uint128[]",
+            "name": "amounts",
+            "type": "uint128[]"
+          }
+        ],
+        "internalType": "struct IMaverickV2Pool.RemoveLiquidityParams",
+        "name": "params",
+        "type": "tuple"
+      }
+    ],
+    "name": "removeLiquidity",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenAAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenBAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint32[]",
+            "name": "binIds",
+            "type": "uint32[]"
+          },
+          {
+            "internalType": "uint128[]",
+            "name": "amounts",
+            "type": "uint128[]"
+          }
+        ],
+        "internalType": "struct IMaverickV2Pool.RemoveLiquidityParams",
+        "name": "params",
+        "type": "tuple"
+      }
+    ],
+    "name": "removeLiquidityToSender",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenAAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenBAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "setApprovalForAll",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "contract IMaverickV2Pool",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32[]",
+        "name": "binIds",
+        "type": "uint32[]"
+      }
+    ],
+    "name": "setTokenIdData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "contract IMaverickV2Pool",
+            "name": "pool",
+            "type": "address"
+          },
+          {
+            "internalType": "uint32[]",
+            "name": "binIds",
+            "type": "uint32[]"
+          }
+        ],
+        "internalType": "struct IMaverickV2Position.PositionPoolBinIds[]",
+        "name": "data",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "setTokenIdData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenByIndex",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenIdDataLength",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "length",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stopIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenIdPositionInformation",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "contract IMaverickV2Pool",
+                "name": "pool",
+                "type": "address"
+              },
+              {
+                "internalType": "uint32[]",
+                "name": "binIds",
+                "type": "uint32[]"
+              }
+            ],
+            "internalType": "struct IMaverickV2Position.PositionPoolBinIds",
+            "name": "poolBinIds",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountA",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountB",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "binAAmounts",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "binBAmounts",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "int32[]",
+            "name": "ticks",
+            "type": "int32[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "liquidities",
+            "type": "uint256[]"
+          }
+        ],
+        "internalType": "struct IMaverickV2Position.PositionFullInformation[]",
+        "name": "output",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenIdPositionInformation",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "contract IMaverickV2Pool",
+                "name": "pool",
+                "type": "address"
+              },
+              {
+                "internalType": "uint32[]",
+                "name": "binIds",
+                "type": "uint32[]"
+              }
+            ],
+            "internalType": "struct IMaverickV2Position.PositionPoolBinIds",
+            "name": "poolBinIds",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountA",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountB",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "binAAmounts",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "binBAmounts",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "int32[]",
+            "name": "ticks",
+            "type": "int32[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "liquidities",
+            "type": "uint256[]"
+          }
+        ],
+        "internalType": "struct IMaverickV2Position.PositionFullInformation",
+        "name": "output",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "tokenIdsOfOwner",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenOfOwnerByIndex",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "ownerToCheck",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenOfOwnerByIndexExists",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenURI",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

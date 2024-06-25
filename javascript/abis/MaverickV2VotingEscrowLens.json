@@ -1,0 +1,238 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2VotingEscrow",
+        "name": "ve",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "claimAndBatchInformation",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "timepointInPast",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "hasClaimed",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint128",
+            "name": "claimAmount",
+            "type": "uint128"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.ClaimInformation[]",
+        "name": "claimInformation",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "totalIncentives",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "stakeDuration",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint48",
+            "name": "claimTimepoint",
+            "type": "uint48"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "incentiveToken",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.BatchInformation[]",
+        "name": "batchInformation",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2VotingEscrow",
+        "name": "ve",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "staker",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "getLockups",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup[]",
+        "name": "returnElements",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2VotingEscrow",
+        "name": "ve",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "incentiveBatchInformation",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "totalIncentives",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "stakeDuration",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint48",
+            "name": "claimTimepoint",
+            "type": "uint48"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "incentiveToken",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.BatchInformation[]",
+        "name": "batchInformation",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMaverickV2VotingEscrowWSync",
+        "name": "ve",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "staker",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "syncInformation",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "amount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "end",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IMaverickV2VotingEscrowBase.Lockup[]",
+        "name": "legacyLockups",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "syncedBalances",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
